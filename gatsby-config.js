@@ -16,5 +16,12 @@ module.exports = {
       },
       __key: "images",
     },
+    {
+      resolve: `gatsby-source-craft`,
+      options: {
+        craftGqlToken: ``,
+        craftGqlUrl: `http://headless-craft.test/api`
+      }
+    }
   ],
 };
