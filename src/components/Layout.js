@@ -18,6 +18,9 @@ export const Layout = ({ children }) => {
       <main>
         {children}
       </main>
+      <footer class="pt-5 my-5 text-muted border-top">
+        Created for Fun &amp; Learning &middot; &copy; {new Date().getFullYear()}
+      </footer>
     </div>
   )
 }
