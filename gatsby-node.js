@@ -24,11 +24,11 @@ exports.createPages = async ({ graphql, actions }) => {
             ... on Craft_mainFileUploads_Asset {
               url
               title
-              localFile {
+              detailCover: localFile {
                 childImageSharp {
                   gatsbyImageData(
-                    width: 480,
-                    height: 240,
+                    width: 960,
+                    height: 480,
                     quality: 80
                   )
                 }

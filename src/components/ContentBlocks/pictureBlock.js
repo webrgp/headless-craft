@@ -9,6 +9,7 @@ export const PictureBlock = ({ image }) => {
     <GatsbyImage
       alt={pic.title}
       image={getImage(pic.localFile)}
+      className="mb-5"
     />
   )
 }

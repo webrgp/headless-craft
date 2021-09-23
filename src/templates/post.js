@@ -1,15 +1,15 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import { Helmet } from 'react-helmet'
 import parse from 'html-react-parser'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { ContentBlocks } from '../components/ContentBlocks'
+import { Layout } from '../components/Layout'
 
 const Post = ({ pageContext }) => {
   const { post } = pageContext
   const [coverPicture] = post.coverPicture
   return (
-    <main>
+    <Layout>
       { post.seomatic && (
         <Helmet>
           {parse(post.seomatic.metaTitleContainer)}
@@ -18,16 +18,14 @@ const Post = ({ pageContext }) => {
           {parse(post.seomatic.metaTagContainer)}
         </Helmet>
       )}
-      <Link to="/">
-        <h3>Gatsby + Craft Blog</h3>
-      </Link>
+      <h1 className="mb-2">{post.title}</h1>
       <GatsbyImage
         alt={coverPicture.title}
-        image={getImage(coverPicture.localFile)}
+        image={getImage(coverPicture.detailCover)}
+        className="mx-auto d-block mb-5"
       />
-      <h1>{post.title}</h1>
       <ContentBlocks blocks={post.contentBlocks} />
-    </main>
+    </Layout>
   )
 }
 

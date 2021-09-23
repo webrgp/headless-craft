@@ -2,6 +2,6 @@ import React from 'react'
 
 export const RichTextBlock = ({ body }) => {
   return (
-    <div dangerouslySetInnerHTML={{ __html: body }} />
+    <div className="mb-5" dangerouslySetInnerHTML={{ __html: body }} />
   )
 }

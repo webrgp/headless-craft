@@ -1,7 +1,9 @@
 import * as React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { Helmet } from 'react-helmet'
 import parse from 'html-react-parser'
+import { Layout } from "../components/Layout"
+import { PostListingItem } from "../components/PostListingItem"
 
 export const query = graphql`
   query HomeQuery {
@@ -11,6 +13,21 @@ export const query = graphql`
         uri
         title
         excerpt
+        coverPicture {
+          ... on Craft_mainFileUploads_Asset {
+            url
+            title
+            listingCover: localFile {
+              childImageSharp {
+                gatsbyImageData(
+                  width: 320,
+                  height: 160,
+                  quality: 80
+                )
+              }
+            }
+          }
+        }
       }
     }
     home: craftHomePageHomePageEntry {
@@ -30,7 +47,7 @@ const IndexPage = ({ data }) => {
   const { posts, home } = data
 
   return (
-    <main>
+    <Layout>
       { home && home.seomatic && (
         <Helmet>
           {parse(home.seomatic.metaTitleContainer)}
@@ -39,18 +56,17 @@ const IndexPage = ({ data }) => {
           {parse(home.seomatic.metaTagContainer)}
         </Helmet>
       )}
-      <h1>Gatsby + Craft Blog</h1>
-      <ul>
+      <h1>Get started with Live Preview!</h1>
+      <p className="fs-5 col-md-8">Check out the series on <a href="https://rodrigopassos.com">RodrigoPassos.com</a></p>
+
+      <hr className="col-3 col-md-2 mb-5" />
+
+      <ul className="icon-list">
         {posts && posts.nodes && posts.nodes.map(post => (
-          <li key={post.uid}>
-            <Link to={`/${post.uri}`}>
-              <h3>{post.title}</h3>
-            </Link>
-            <p>{post.excerpt}</p>
-          </li>
+          <PostListingItem key={post.uid} post={post} />
         ))}
       </ul>
-    </main>
+    </Layout>
   )
 }
 

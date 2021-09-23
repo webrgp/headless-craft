@@ -1,0 +1,10 @@
+.icon-list {
+  padding-left: 0;
+  list-style: none;
+}
+.icon-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: .25rem;
+}
