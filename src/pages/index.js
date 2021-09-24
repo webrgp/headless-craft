@@ -7,17 +7,17 @@ import { PostListingItem } from "../components/PostListingItem"
 
 export const query = graphql`
   query HomeQuery {
-    posts: allCraftBlogDefaultEntry {
+    posts: allBlogDefaultEntry {
       nodes {
         uid
         uri
         title
         excerpt
         coverPicture {
-          ... on Craft_mainFileUploads_Asset {
+          ... on mainFileUploads_Asset {
             url
             title
-            listingCover: localFile {
+            localFile {
               childImageSharp {
                 gatsbyImageData(
                   width: 320,
@@ -30,9 +30,9 @@ export const query = graphql`
         }
       }
     }
-    home: craftHomePageHomePageEntry {
+    home: homePageHomePageEntry {
       seomatic {
-        ... on Craft_SeomaticType {
+        ... on SeomaticType {
           metaTitleContainer
           metaTagContainer
           metaLinkContainer

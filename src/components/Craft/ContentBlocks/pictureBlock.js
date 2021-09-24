@@ -1,15 +1,15 @@
 import React from 'react'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { Img } from '../../Img'
 
 export const PictureBlock = ({ image }) => {
 
   const [ pic ] = image
 
   return (
-    <GatsbyImage
+    <Img
       alt={pic.title}
-      image={getImage(pic.localFile)}
-      className="mb-5"
+      image={pic}
+      className="mx-auto d-block w-100 mb-5"
     />
   )
 }

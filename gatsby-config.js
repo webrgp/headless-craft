@@ -20,7 +20,8 @@ module.exports = {
       resolve: `gatsby-source-craft`,
       options: {
         craftGqlToken: ``,
-        craftGqlUrl: `http://headless-craft.test/api`
+        craftGqlUrl: `http://headless-craft.test/api`,
+        typePrefix: ``,
       }
     }
   ],

@@ -1,18 +1,27 @@
 const path = require(`path`)
 
+const createEntryPage = (createPage, entry) => {
+  createPage({
+    path: entry.uri,
+    component: path.resolve('./src/templates/base.js'),
+    context: { entry }
+  })
+}
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const result = await graphql(`
     query PostsQuery {
-      posts: allCraftBlogDefaultEntry {
+      entries: allBlogDefaultEntry {
         nodes {
-
           uid
           uri
           title
+          typeHandle
+          sectionHandle
 
           seomatic {
-            ... on Craft_SeomaticType {
+            ... on SeomaticType {
               metaTitleContainer
               metaTagContainer
               metaLinkContainer
@@ -21,10 +30,10 @@ exports.createPages = async ({ graphql, actions }) => {
           }
 
           coverPicture {
-            ... on Craft_mainFileUploads_Asset {
+            ... on mainFileUploads_Asset {
               url
               title
-              detailCover: localFile {
+              localFile {
                 childImageSharp {
                   gatsbyImageData(
                     width: 960,
@@ -37,16 +46,16 @@ exports.createPages = async ({ graphql, actions }) => {
           }
 
           contentBlocks {
-            ... on Craft_contentBlocks_richText_BlockType {
+            ... on contentBlocks_richText_BlockType {
               uid
               typeHandle
               body
             }
-            ... on Craft_contentBlocks_picture_BlockType {
+            ... on contentBlocks_picture_BlockType {
               uid
               typeHandle
               image {
-                ... on Craft_mainFileUploads_Asset {
+                ... on mainFileUploads_Asset {
                   url
                   title
                   localFile {
@@ -58,7 +67,6 @@ exports.createPages = async ({ graphql, actions }) => {
               }
             }
           }
-
         }
       }
     }
@@ -68,11 +76,7 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors
   }
 
-  const { posts } = result.data
+  const { entries } = result.data
 
-  posts.nodes.forEach(post => createPage({
-    path: post.uri,
-    component: path.resolve('./src/templates/post.js'),
-    context: { post }
-  }))
+  entries.nodes.forEach(entry => createEntryPage(createPage, entry))
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { Img } from './Img';
 
 export const PostListingItem = ({ post }) => {
 
@@ -10,9 +10,9 @@ export const PostListingItem = ({ post }) => {
   return (
     <li>
       <Link to={`/${post.uri}`} className="text-decoration-none text-reset">
-        <GatsbyImage
+        <Img
           alt={coverPicture.title}
-          image={getImage(coverPicture.listingCover)}
+          image={coverPicture}
           className="mx-auto d-block mb-2"
         />
         <h5>{post.title}</h5>
